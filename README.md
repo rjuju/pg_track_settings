@@ -22,8 +22,15 @@ CREATE EXTENSION pg_track_settings;
 Then make sure the **pg_track_settings_snapshot()** function called. Cron or
 PoWA can be used for that.
 
-Manual example
---------------
+Functions
+---------
+
+- `pg_track_settings_snapshot()`: collect the current settings value.
+- `pg_track_setting(timestamptz)`: return all settings at the specified timestamp. Current time is used if no timestamped specified.
+- `pg_track_setting_diff(timestamptz, timestamptz)`: return all settings that have changed between the two specified timestamps.
+
+Example
+-------
 Call a first time the snapshot function to get the initial values:
 
 ```
@@ -41,15 +48,6 @@ A first snapshot is now taken:
 -------------------------------
  2015-01-25 01:00:37.449846+01
  (1 row)
-```
-
-Each setting has only one entry:
-
-```
-postgres=# select name, count(*) FROM pg_track_settings_history GROUP BY name HAVING count(*) > 1;
- name | count
- ------+-------
- (0 rows)
 ```
 
 Let's assume the configuration changed, and reload the conf:
@@ -72,25 +70,14 @@ postgres=# select * from pg_track_settings_snapshot();
 (1 row)
 ```
 
-Now, the settings that have been changed will have several occurences:
+Now, we can check what settings changed:
 
 ```
-postgres=# select name, count(*) FROM pg_track_settings_history GROUP BY name HAVING count(*) > 1;
-        name         | count
----------------------+-------
- checkpoint_segments |     2
+postgres=# select * FROM pg_track_settings_diff(now() - interval '2 minutes', now());
+        name         | from_setting | from_exists | to_setting | to_exists
+---------------------+--------------|-------------|------------|----------
+ checkpoint_segments | 30           | t           | 35         | t
 (1 row)
-```
-
-We can see the modification for this setting:
-
-```
-postgres=# select * from pg_track_settings_history WHERE name = 'checkpoint_segments' ORDER BY ts;
-              ts               |        name         | setting
--------------------------------+---------------------+---------
- 2015-01-25 01:00:37.449846+01 | checkpoint_segments | 30
- 2015-01-25 01:06:34.963044+01 | checkpoint_segments | 35
-(2 rows)
 ```
 
 We also have the history of postgres start time:

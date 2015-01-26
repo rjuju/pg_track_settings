@@ -77,3 +77,39 @@ BEGIN
 END;
 $_$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION pg_track_settings(_ts timestamp with time zone DEFAULT now())
+RETURNS TABLE (name text, setting text) AS
+$_$
+BEGIN
+    RETURN QUERY
+        SELECT s.name, s.setting
+        FROM (
+            SELECT h.name, h.setting, h.is_dropped, row_number() OVER (PARTITION BY h.name ORDER BY h.ts DESC) AS rownum
+            FROM pg_track_settings_history h
+            WHERE ts <= _ts
+        ) s
+        WHERE s.rownum = 1
+        AND NOT s.is_dropped
+        ORDER BY s.name;
+END;
+$_$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION pg_track_settings_diff(_from timestamp with time zone, _to timestamp with time zone)
+RETURNS TABLE (name text, from_setting text, from_exists boolean, to_setting text, to_exists boolean) AS
+$_$
+BEGIN
+    RETURN QUERY
+        SELECT COALESCE(s1.name, s2.name),
+               s1.setting AS from_setting,
+               CASE WHEN s1.setting IS NULL THEN false ELSE true END,
+               s2.setting AS to_setting,
+               CASE WHEN s2.setting IS NULL THEN false ELSE true END
+        FROM pg_track_settings(_from) s1
+        FULL OUTER JOIN pg_track_settings(_to) s2 ON s2.name = s1.name
+        WHERE s1.setting IS DISTINCT FROM s2.setting
+        ORDER BY 1;
+END;
+$_$
+LANGUAGE plpgsql;
