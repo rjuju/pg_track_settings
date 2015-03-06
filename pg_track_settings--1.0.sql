@@ -60,7 +60,7 @@ BEGIN
     FROM pg_settings s
     LEFT JOIN last_snapshot l ON l.name = s.name
     WHERE l.name IS NULL
-    OR l.setting <> s.setting;
+    OR l.setting IS DISTINCT FROM s.setting;
 
     -- Detect is postmaster restarted since last call
     WITH last_reboot AS (
