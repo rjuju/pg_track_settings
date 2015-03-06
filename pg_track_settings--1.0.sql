@@ -113,3 +113,16 @@ BEGIN
 END;
 $_$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION pg_track_settings_log(_name text)
+RETURNS TABLE (ts timestamp with time zone, name text, setting_exists boolean, setting text) AS
+$_$
+BEGIN
+    RETURN QUERY
+        SELECT h.ts, h.name, NOT h.is_dropped, h.setting
+        FROM pg_track_settings_history h
+        WHERE h.name = _name
+        ORDER BY ts DESC;
+END;
+$_$
+LANGUAGE plpgsql;

@@ -26,8 +26,9 @@ Functions
 ---------
 
 - `pg_track_settings_snapshot()`: collect the current settings value.
-- `pg_track_setting(timestamptz)`: return all settings at the specified timestamp. Current time is used if no timestamped specified.
-- `pg_track_setting_diff(timestamptz, timestamptz)`: return all settings that have changed between the two specified timestamps.
+- `pg_track_settings(timestamptz)`: return all settings at the specified timestamp. Current time is used if no timestamped specified.
+- `pg_track_settings_diff(timestamptz, timestamptz)`: return all settings that have changed between the two specified timestamps.
+- `pg_track_settings_log(text)`: return the history of a specific setting.
 
 Example
 -------
@@ -73,12 +74,24 @@ postgres=# select * from pg_track_settings_snapshot();
 Now, we can check what settings changed:
 
 ```
-postgres=# select * FROM pg_track_settings_diff(now() - interval '2 minutes', now());
+postgres=# SELECT * FROM pg_track_settings_diff(now() - interval '2 minutes', now());
         name         | from_setting | from_exists | to_setting | to_exists
 ---------------------+--------------|-------------|------------|----------
  checkpoint_segments | 30           | t           | 35         | t
 (1 row)
 ```
+
+And the detailed history of this setting:
+
+```
+postgres=# SELECT * FROM pg_track_settings_log('checkpoint_segments');
+              ts               |     name            | setting_exists | setting 
+-------------------------------+---------------------+----------------+---------
+ 2015-01-25 01:01:42.581682+01 | checkpoint_segments | t              | 35
+ 2015-01-25 01:00:37.449846+01 | checkpoint_segments | t              | 30
+(2 rows)
+```
+
 
 We also have the history of postgres start time:
 
