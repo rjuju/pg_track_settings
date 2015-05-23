@@ -9,6 +9,8 @@ regularly. At each call, it will store the settings that have been changed
 since last call. It will also track the postgresql start time if it's different
 from the last one.
 
+This extension tracks both overall settings (the **pg_settings** view) and
+overloaded settings (the **pg_db_role_setting** table).
 
 Usage
 -----
@@ -29,6 +31,9 @@ Functions
 - `pg_track_settings(timestamptz)`: return all settings at the specified timestamp. Current time is used if no timestamped specified.
 - `pg_track_settings_diff(timestamptz, timestamptz)`: return all settings that have changed between the two specified timestamps.
 - `pg_track_settings_log(text)`: return the history of a specific setting.
+- `pg_track_db_role_settings(timestamptz)`: return all overloaded settings at the specified timestamp. Current time is used if no timestamped specified.
+- `pg_track_db_role_settings_diff(timestamptz, timestamptz)`: return all overloaded settings that have changed between the two specified timestamps.
+- `pg_track_db_role_settings_log(text)`: return the history of a specific overloaded setting.
 
 Example
 -------
