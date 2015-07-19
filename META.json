@@ -1,0 +1,42 @@
+{
+   "name": "pg_track_settings",
+   "abstract": "A simple extension which keep track of postgresql settings modifications",
+   "version": "__VERSION__",
+   "maintainer": "Julien Rouhaud <julien.rouhaud@dalibo.com>",
+   "license": "postgresql",
+   "release_status": "stable",
+   "provides": {
+      "pg_track_settings": {
+         "abstract": "A simple extension which keep track of postgresql settings modifications",
+         "file": "pg_track_settings.sql",
+         "docfile": "README.md",
+         "version": "__VERSION__"
+      }
+   },
+   "resources": {
+      "bugtracker": {
+         "web": "http://github.com/rjuju/pg_track_settings/issues/"
+      },
+      "repository": {
+        "url":  "git://github.com/rjuju/pg_track_settings.git",
+        "web":  "http://github.com/rjuju/pg_track_settings/",
+        "type": "git"
+      }
+   },
+   "prereqs": {
+       "runtime": {
+           "requires": {
+               "PostgreSQL": "9.1.0"
+           }
+       }
+   },
+   "generated_by": "Julien Rouhaud",
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "http://pgxn.org/meta/spec.txt"
+   },
+   "tags": [
+      "monitoring",
+      "administration"
+   ]
+}
