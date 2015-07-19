@@ -97,6 +97,27 @@ postgres=# SELECT * FROM pg_track_settings_log('checkpoint_segments');
 (2 rows)
 ```
 
+And you can retrieve all the PostgreSQL configuration at a specific timestamp:
+
+
+```
+postgres=# SELECT * FROM pg_track_settings('2015-01-25 01:01:00');
+            name              | setting
+------------------------------+---------
+[...]
+ checkpoint_completion_target | 0.9
+ checkpoint_segments          | 30
+ checkpoint_timeout           | 300
+[...]
+```
+
+The same functions are provided for per role and/or database settings (
+**ALTER ROLE ... SET**, **ALTER ROLE ... IN DATABASE ... SET** and
+**ALTER DATABASE ... SET** commands):
+
+  - pg\_track\_db\_role\_settings\_diff()
+  - pg\_track\_db\_role\_settings\_log()
+  - pg\_track\_db\_role\_settings()
 
 We also have the history of postgres start time:
 
