@@ -11,6 +11,7 @@ SET client_encoding = 'UTF8';
 CREATE TABLE pg_track_settings_list (
     name text PRIMARY KEY
 );
+SELECT pg_catalog.pg_extension_config_dump('pg_track_settings_list', '');
 
 CREATE TABLE pg_track_settings_history (
     ts timestamp with time zone,
@@ -19,6 +20,7 @@ CREATE TABLE pg_track_settings_history (
     is_dropped boolean NOT NULL DEFAULT false,
     PRIMARY KEY(ts, name)
 );
+SELECT pg_catalog.pg_extension_config_dump('pg_track_settings_history', '');
 
 CREATE TABLE pg_track_db_role_settings_list (
     name text,
@@ -26,6 +28,7 @@ CREATE TABLE pg_track_db_role_settings_list (
     setrole oid,
     PRIMARY KEY (name, setdatabase, setrole)
 );
+SELECT pg_catalog.pg_extension_config_dump('pg_track_db_role_settings_list', '');
 
 CREATE TABLE pg_track_db_role_settings_history (
     ts timestamp with time zone,
@@ -36,10 +39,12 @@ CREATE TABLE pg_track_db_role_settings_history (
     is_dropped boolean NOT NULL DEFAULT false,
     PRIMARY KEY(ts, name, setdatabase, setrole)
 );
+SELECT pg_catalog.pg_extension_config_dump('pg_track_db_role_settings_history', '');
 
 CREATE TABLE pg_reboot (
     ts timestamp with time zone PRIMARY KEY
 );
+SELECT pg_catalog.pg_extension_config_dump('pg_reboot', '');
 
 CREATE OR REPLACE FUNCTION pg_track_settings_snapshot() RETURNS boolean AS
 $_$
