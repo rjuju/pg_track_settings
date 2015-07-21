@@ -292,3 +292,16 @@ BEGIN
 END;
 $_$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION pg_track_settings_reset()
+RETURNS void AS
+$_$
+BEGIN
+    TRUNCATE pg_track_settings_list;
+    TRUNCATE pg_track_settings_history;
+    TRUNCATE pg_track_db_role_settings_list;
+    TRUNCATE pg_track_db_role_settings_history;
+    TRUNCATE pg_reboot;
+END;
+$_$
+LANGUAGE plpgsql;

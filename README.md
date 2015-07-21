@@ -128,3 +128,7 @@ postgres=# SELECT * FROM pg_reboot;
  2015-01-25 00:39:43.609195+01
 (1 row)
 ```
+
+Please also note that all the history will be saved in a pg\_dump / pg\_dumpall
+backup.  If you need the clear this history, the function
+**pg\_track\_settings\_reset()** will do that for you.
