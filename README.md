@@ -77,7 +77,7 @@ Now, we can check what settings changed:
 And the detailed history of this setting:
 
     postgres=# SELECT * FROM pg_track_settings_log('checkpoint_segments');
-                  ts               |     name            | setting_exists | setting 
+                  ts               |     name            | setting_exists | setting
     -------------------------------+---------------------+----------------+---------
      2015-01-25 01:01:42.581682+01 | checkpoint_segments | t              | 35
      2015-01-25 01:00:37.449846+01 | checkpoint_segments | t              | 30
