@@ -170,7 +170,7 @@ BEGIN
         SELECT * FROM public.pg_track_settings_settings_src(_srvid)
     ),
     dropped AS (
-        SELECT l.srvid, l.name
+        SELECT s.ts, l.srvid, l.name
         FROM public.pg_track_settings_list l
         LEFT JOIN src s ON s.name = l.name
         WHERE l.srvid = _srvid
@@ -179,7 +179,7 @@ BEGIN
     mark_dropped AS (
         INSERT INTO public.pg_track_settings_history (srvid, ts, name, setting,
             setting_pretty, is_dropped)
-        SELECT srvid, _snap_ts, name, NULL, NULL, true
+        SELECT srvid, ts, name, NULL, NULL, true
         FROM dropped
     )
     DELETE FROM public.pg_track_settings_list l
@@ -252,7 +252,7 @@ BEGIN
         SELECT * FROM public.pg_track_settings_rds_src(_srvid)
     ),
     dropped AS (
-        SELECT l.setdatabase, l.setrole, l.name
+        SELECT s.ts, l.setdatabase, l.setrole, l.name
         FROM public.pg_track_db_role_settings_list l
         LEFT JOIN rds s ON (
             s.setdatabase = l.setdatabase
@@ -267,7 +267,7 @@ BEGIN
     mark_dropped AS (
         INSERT INTO public.pg_track_db_role_settings_history
             (srvid, ts, setdatabase, setrole, name, setting, is_dropped)
-        SELECT _srvid, _snap_ts, d.setdatabase, d.setrole, d.name, NULL, true
+        SELECT _srvid, ts, d.setdatabase, d.setrole, d.name, NULL, true
         FROM dropped AS d
     )
     DELETE FROM public.pg_track_db_role_settings_list l
