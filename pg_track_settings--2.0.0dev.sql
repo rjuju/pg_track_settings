@@ -153,7 +153,7 @@ CREATE OR REPLACE FUNCTION pg_track_settings_snapshot_settings(_srvid integer)
     RETURNS boolean AS
 $_$
 DECLARE
-    _snap_ts timestamp with time zone;
+    _snap_ts timestamp with time zone = NULL;
 BEGIN
     SELECT max(ts) INTO _snap_ts
     FROM public.pg_track_settings_settings_src(_srvid);
@@ -179,7 +179,7 @@ BEGIN
     mark_dropped AS (
         INSERT INTO public.pg_track_settings_history (srvid, ts, name, setting,
             setting_pretty, is_dropped)
-        SELECT srvid, ts, name, NULL, NULL, true
+        SELECT srvid, COALESCE(_snap_ts, now()), name, NULL, NULL, true
         FROM dropped
     )
     DELETE FROM public.pg_track_settings_list l
