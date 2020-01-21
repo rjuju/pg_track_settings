@@ -4,7 +4,7 @@ pg_track_settings
 pg_track_settings is a small extension that helps you keep track of
 postgresql settings configuration.
 
-It provides a function (**pg_track_settings_snapshot()**), that me must called
+It provides a function (**pg_track_settings_snapshot()**), that must be called
 regularly. At each call, it will store the settings that have been changed
 since last call. It will also track the postgresql start time if it's different
 from the last one.
