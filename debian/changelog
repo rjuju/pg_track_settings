@@ -1,5 +1,5 @@
-pg-track-settings (2.0.0-1) UNRELEASED; urgency=medium
+pg-track-settings (2.0.0-1) unstable; urgency=medium
 
   * Initial release.
 
- -- Julien Rouhaud <rjuju123@gmail.com>  Sat, 20 Jun 2020 15:57:57 +0000
+ -- Julien Rouhaud <rjuju123@gmail.com>  Fri, 07 Aug 2020 16:19:41 +0200
