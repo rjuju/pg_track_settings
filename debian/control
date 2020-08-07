@@ -9,7 +9,7 @@ Vcs-Browser: https://github.com/rjuju/pg_track_settings
 Vcs-Git: https://github.com/rjuju/pg_track_settings.git
 
 Package: postgresql-12-pg-track-settings
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, postgresql-12
 Description: PostgreSQL extension tracking of configuration settings
  pg_track_settings is a small PostgreSQL extension that helps you keep track of
