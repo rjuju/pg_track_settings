@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2010-09-05 2.0.0:
+2019-09-05 2.0.0:
 ------------------
 
   - Add support for remote snapshot mode that will be available with powa 4
