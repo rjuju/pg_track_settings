@@ -252,7 +252,7 @@ BEGIN
         SELECT * FROM public.pg_track_settings_rds_src(_srvid)
     ),
     dropped AS (
-        SELECT s.ts, l.setdatabase, l.setrole, l.name
+        SELECT _snap_ts AS ts, l.setdatabase, l.setrole, l.name
         FROM public.pg_track_db_role_settings_list l
         LEFT JOIN rds s ON (
             s.setdatabase = l.setdatabase

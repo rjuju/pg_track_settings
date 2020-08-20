@@ -21,8 +21,11 @@ SELECT * FROM public.pg_track_settings_snapshot();
 SELECT COALESCE(datname, '-') AS datname, setrole::regrole, name, setting_exists, setting FROM public.pg_track_db_role_settings_log('work_mem') s LEFT JOIN pg_database d ON d.oid = s.setdatabase ORDER BY ts ASC;
 SELECT COALESCE(datname, '-') AS datname, setrole::regrole, name, from_setting, from_exists, to_setting, to_exists FROM public.pg_track_db_role_settings_diff(now() - interval '10 min', now()) s LEFT JOIN pg_database d ON d.oid = s.setdatabase WHERE name = 'work_mem' ORDER BY 1, 2, 3;
 ALTER DATABASE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
 ALTER ROLE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
 ALTER ROLE postgres IN DATABASE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
 -- test pg_reboot
 SELECT COUNT(*) FROM public.pg_reboot;
 SELECT now() - ts > interval '2 second' FROM public.pg_reboot;

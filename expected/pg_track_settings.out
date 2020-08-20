@@ -86,8 +86,26 @@ SELECT COALESCE(datname, '-') AS datname, setrole::regrole, name, from_setting, 
 (3 rows)
 
 ALTER DATABASE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
+ pg_track_settings_snapshot 
+----------------------------
+ t
+(1 row)
+
 ALTER ROLE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
+ pg_track_settings_snapshot 
+----------------------------
+ t
+(1 row)
+
 ALTER ROLE postgres IN DATABASE postgres RESET work_mem;
+SELECT * FROM public.pg_track_settings_snapshot();
+ pg_track_settings_snapshot 
+----------------------------
+ t
+(1 row)
+
 -- test pg_reboot
 SELECT COUNT(*) FROM public.pg_reboot;
  count 
