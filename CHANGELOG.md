@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2020-10-02 2.0.1:
+------------------
+
+  - Fix handling of dropped pg_db_role_setting entries.  Thanks to Adrien
+    Nayrat for the report.
+
 2019-09-05 2.0.0:
 ------------------
 
