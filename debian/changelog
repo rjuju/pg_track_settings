@@ -1,3 +1,12 @@
+pg-track-settings (2.0.0-2) unstable; urgency=medium
+
+  * Team upload for PostgreSQL 13.
+  * Use dh --with pgxs_loop.
+  * R³: no.
+  * debian/tests: Use 'make' instead of postgresql-server-dev-all.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 19 Oct 2020 11:56:59 +0200
+
 pg-track-settings (2.0.0-1) unstable; urgency=medium
 
   * Initial release.
