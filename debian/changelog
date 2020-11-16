@@ -2,7 +2,23 @@ pg-track-settings (2.0.1-1) unstable; urgency=medium
 
   * New upstream version.
 
- -- Julien Rouhaud <rjuju123@gmail.com>  Fri, 02 Oct 2020 00:34:41 +0000
+ -- Julien Rouhaud <rjuju123@gmail.com>  Mon, 16 Nov 2020 16:46:05 +0100
+
+pg-track-settings (2.0.0-3) unstable; urgency=medium
+
+  * Team upload.
+  * Testsuite wants to run as postgres, so require root for autopkgtest.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 27 Oct 2020 10:59:52 +0100
+
+pg-track-settings (2.0.0-2) unstable; urgency=medium
+
+  * Team upload for PostgreSQL 13.
+  * Use dh --with pgxs_loop.
+  * R³: no.
+  * debian/tests: Use 'make' instead of postgresql-server-dev-all.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 19 Oct 2020 11:56:59 +0200
 
 pg-track-settings (2.0.0-1) unstable; urgency=medium
 
