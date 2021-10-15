@@ -1,3 +1,9 @@
+pg-track-settings (2.0.1-2) unstable; urgency=medium
+
+  * Team upload for PostgreSQL 14.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 15 Oct 2021 15:54:21 +0200
+
 pg-track-settings (2.0.1-1) unstable; urgency=medium
 
   * New upstream version.
