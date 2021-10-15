@@ -9,9 +9,9 @@ Homepage: https://powa.readthedocs.io/
 Vcs-Browser: https://github.com/rjuju/pg_track_settings
 Vcs-Git: https://github.com/rjuju/pg_track_settings.git
 
-Package: postgresql-13-pg-track-settings
+Package: postgresql-14-pg-track-settings
 Architecture: all
-Depends: ${misc:Depends}, postgresql-13
+Depends: ${misc:Depends}, postgresql-14
 Description: PostgreSQL extension tracking of configuration settings
  pg_track_settings is a small PostgreSQL extension that helps you keep track of
  PostgreSQL settings configuration.
