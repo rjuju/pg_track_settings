@@ -92,9 +92,9 @@ SELECT public.pg_track_settings_snapshot_rds(1);
 SELECT public.pg_track_settings_snapshot_reboot(1);
 -- test raw data
 SELECT * FROM public.pg_track_settings_list ORDER BY 1, 2;
-SELECT * FROM public.pg_track_settings_history ORDER BY 1, 2;
+SELECT * FROM public.pg_track_settings_history ORDER BY 1, 2, 3;
 SELECT * FROM public.pg_track_db_role_settings_list ORDER BY 1, 2;
-SELECT * FROM public.pg_track_db_role_settings_history ORDER BY 1, 2;
+SELECT * FROM public.pg_track_db_role_settings_history ORDER BY 1, 2, 3;
 SELECT * FROM public.pg_reboot ORDER BY 1, 2;
 
 -- test functions

@@ -256,12 +256,12 @@ SELECT * FROM public.pg_track_settings_list ORDER BY 1, 2;
      1 | work_mem
 (2 rows)
 
-SELECT * FROM public.pg_track_settings_history ORDER BY 1, 2;
+SELECT * FROM public.pg_track_settings_history ORDER BY 1, 2, 3;
  srvid |              ts              |   name    | setting | is_dropped | setting_pretty 
 -------+------------------------------+-----------+---------+------------+----------------
      1 | Tue Jan 01 00:00:00 2019 CET | work_mem  | 0       | f          | 0MB
-     1 | Wed Jan 02 01:00:00 2019 CET | work_mem  | 10240   | f          | 10MB
      1 | Wed Jan 02 01:00:00 2019 CET | something | someval | f          | someval
+     1 | Wed Jan 02 01:00:00 2019 CET | work_mem  | 10240   | f          | 10MB
 (3 rows)
 
 SELECT * FROM public.pg_track_db_role_settings_list ORDER BY 1, 2;
@@ -271,12 +271,12 @@ SELECT * FROM public.pg_track_db_role_settings_list ORDER BY 1, 2;
      1 | work_mem  |         123 |       0
 (2 rows)
 
-SELECT * FROM public.pg_track_db_role_settings_history ORDER BY 1, 2;
+SELECT * FROM public.pg_track_db_role_settings_history ORDER BY 1, 2, 3;
  srvid |              ts              |   name    | setdatabase | setrole | setting | is_dropped 
 -------+------------------------------+-----------+-------------+---------+---------+------------
      1 | Tue Jan 01 00:00:00 2019 CET | work_mem  |         123 |       0 | 0MB     | f
-     1 | Wed Jan 02 01:00:00 2019 CET | work_mem  |         123 |       0 | 10MB    | f
      1 | Wed Jan 02 01:00:00 2019 CET | something |           0 |     456 | someval | f
+     1 | Wed Jan 02 01:00:00 2019 CET | work_mem  |         123 |       0 | 10MB    | f
 (3 rows)
 
 SELECT * FROM public.pg_reboot ORDER BY 1, 2;
