@@ -6,6 +6,27 @@ CREATE EXTENSION pg_track_settings WITH SCHEMA "PGTS";
 -- But not relocatable
 ALTER EXTENSION pg_track_settings SET SCHEMA public;
 
+-- Check the relations that aren't dumped
+WITH ext AS (
+    SELECT c.oid, c.relname
+    FROM pg_depend d
+    JOIN pg_extension e ON d.refclassid = 'pg_extension'::regclass
+        AND e.oid = d.refobjid
+        AND e.extname = 'pg_track_settings'
+    JOIN pg_class c ON d.classid = 'pg_class'::regclass
+        AND c.oid = d.objid
+),
+dmp AS (
+    SELECT unnest(extconfig) AS oid
+    FROM pg_extension
+    WHERE extname = 'pg_track_settings'
+)
+SELECT ext.relname
+FROM ext
+LEFT JOIN dmp USING (oid)
+WHERE dmp.oid IS NULL
+ORDER BY ext.relname COLLATE "C";
+
 -- test main config history
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_history;
 SET work_mem = '10MB';
