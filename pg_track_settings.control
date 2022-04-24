@@ -3,4 +3,3 @@ default_version = '2.1.0'
 module_pathname = '$libdir/pg_track_settings'
 superuser = false
 relocatable = false
-schema = 'public'
