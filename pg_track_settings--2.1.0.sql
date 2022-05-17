@@ -205,11 +205,11 @@ BEGIN
         SELECT srvid, name, setting
         FROM (
             SELECT srvid, name, setting,
-              row_number() OVER (PARTITION BY NAME ORDER BY ts DESC) AS rownum
+              row_number() OVER (PARTITION BY NAME ORDER BY ts DESC) AS rn
             FROM @extschema@.pg_track_settings_history h
             WHERE h.srvid = _srvid
         ) all_snapshots
-        WHERE rownum = 1
+        WHERE all_snapshots.rn = 1
     )
     INSERT INTO @extschema@.pg_track_settings_history
       (srvid, ts, name, setting, setting_pretty)
@@ -303,11 +303,11 @@ BEGIN
         SELECT setdatabase, setrole, name, setting
         FROM (
             SELECT setdatabase, setrole, name, setting,
-                row_number() OVER (PARTITION BY name, setdatabase, setrole ORDER BY ts DESC) AS rownum
+                row_number() OVER (PARTITION BY name, setdatabase, setrole ORDER BY ts DESC) AS rn
             FROM @extschema@.pg_track_db_role_settings_history
             WHERE srvid = _srvid
         ) all_snapshots
-        WHERE rownum = 1
+        WHERE all_snapshots.rn = 1
     )
     INSERT INTO @extschema@.pg_track_db_role_settings_history
         (srvid, ts, setdatabase, setrole, name, setting)
@@ -386,12 +386,12 @@ BEGIN
         SELECT s.name, s.setting, s.setting_pretty
         FROM (
             SELECT h.name, h.setting, h.setting_pretty, h.is_dropped,
-            row_number() OVER (PARTITION BY h.name ORDER BY h.ts DESC) AS rownum
+            row_number() OVER (PARTITION BY h.name ORDER BY h.ts DESC) AS rn
             FROM @extschema@.pg_track_settings_history h
             WHERE h.srvid = _srvid
             AND h.ts <= _ts
         ) s
-        WHERE s.rownum = 1
+        WHERE s.rn = 1
         AND NOT s.is_dropped
         ORDER BY s.name;
 END;
@@ -408,12 +408,12 @@ BEGIN
         SELECT s.setdatabase, s.setrole, s.name, s.setting
         FROM (
             SELECT h.setdatabase, h.setrole, h.name, h.setting, h.is_dropped,
-                row_number() OVER (PARTITION BY h.name, h.setdatabase, h.setrole ORDER BY h.ts DESC) AS rownum
+                row_number() OVER (PARTITION BY h.name, h.setdatabase, h.setrole ORDER BY h.ts DESC) AS rn
             FROM @extschema@.pg_track_db_role_settings_history h
             WHERE h.srvid = _srvid
             AND h.ts <= _ts
         ) s
-        WHERE s.rownum = 1
+        WHERE s.rn = 1
         AND NOT s.is_dropped
         ORDER BY s.setdatabase, s.setrole, s.name;
 END;
