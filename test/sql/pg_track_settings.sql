@@ -27,6 +27,18 @@ LEFT JOIN dmp USING (oid)
 WHERE dmp.oid IS NULL
 ORDER BY ext.relname COLLATE "C";
 
+-- Check that all objects are stored in the expected schema
+WITH ext AS (
+    SELECT pg_describe_object(d.classid, d.objid, d.objsubid) AS descr
+    FROM pg_depend d
+    JOIN pg_extension e ON d.refclassid = 'pg_extension'::regclass
+        AND e.oid = d.refobjid
+        AND e.extname = 'pg_track_settings'
+)
+SELECT descr FROM ext
+WHERE descr NOT like '%"PGTS".%'
+ORDER BY descr COLLATE "C";
+
 -- test main config history
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_history;
 SET work_mem = '10MB';

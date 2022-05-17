@@ -33,6 +33,21 @@ ORDER BY ext.relname COLLATE "C";
  pg_track_settings_settings_src_tmp
 (3 rows)
 
+-- Check that all objects are stored in the expected schema
+WITH ext AS (
+    SELECT pg_describe_object(d.classid, d.objid, d.objsubid) AS descr
+    FROM pg_depend d
+    JOIN pg_extension e ON d.refclassid = 'pg_extension'::regclass
+        AND e.oid = d.refobjid
+        AND e.extname = 'pg_track_settings'
+)
+SELECT descr FROM ext
+WHERE descr NOT like '%"PGTS".%'
+ORDER BY descr COLLATE "C";
+ descr 
+-------
+(0 rows)
+
 -- test main config history
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_history;
  count 
