@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2022-09-20 2.1.0:
+
+- Allow installation in a custom schema (Julien Rouhaud)
+- debian packaging improvements (Chrstoph Berg)
+- Make the extension compatible with EDB fork of postgres (Julien Rouhaud, per
+  report from github user manishnew09 and help from Thomas Reiss)
+- various regression testss improvements (Julien Rouhaud)
+
 2020-10-02 2.0.1:
 ------------------
 

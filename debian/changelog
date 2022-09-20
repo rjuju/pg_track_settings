@@ -1,3 +1,9 @@
+pg-track-settings (2.1.0-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Julien Rouhaud <rjuju123@gmail.com>  Tue, 20 Sep 2022 11:58:27 +0800
+
 pg-track-settings (2.0.1-2) unstable; urgency=medium
 
   * Team upload for PostgreSQL 14.
