@@ -1,2 +1,2 @@
 version=3
-https://github.com/rjuju/pg_track_settings/releases .*/archive/([0-9].*).tar.gz
+https://github.com/rjuju/pg_track_settings/tags .*/([0-9.]*).tar.gz
