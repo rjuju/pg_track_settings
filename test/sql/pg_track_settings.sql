@@ -25,7 +25,7 @@ SELECT ext.relname
 FROM ext
 LEFT JOIN dmp USING (oid)
 WHERE dmp.oid IS NULL
-ORDER BY ext.relname COLLATE "C";
+ORDER BY ext.relname::text COLLATE "C";
 
 -- Check that all objects are stored in the expected schema
 WITH ext AS (
