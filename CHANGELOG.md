@@ -1,7 +1,14 @@
 Changelog
 =========
 
+2022-09-21 2.1.1:
+------------------
+
+- Fix regression tests on PG 11 an earlier (Christoph Berg)
+- Run regression tests in a GitHub workflow (Christoph Berg)
+
 2022-09-20 2.1.0:
+------------------
 
 - Allow installation in a custom schema (Julien Rouhaud)
 - debian packaging improvements (Chrstoph Berg)

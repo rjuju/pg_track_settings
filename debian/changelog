@@ -1,3 +1,9 @@
+pg-track-settings (2.1.1-1) unstable; urgency=medium
+
+  * Team upload with new upstream version.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 21 Sep 2022 14:20:44 +0200
+
 pg-track-settings (2.1.0-1) unstable; urgency=medium
 
   * New upstream version.
