@@ -2,7 +2,7 @@ Source: pg-track-settings
 Section: database
 Priority: optional
 Maintainer: Julien Rouhaud <rjuju123@gmail.com>
-Standards-Version: 4.5.0
+Standards-Version: 4.6.1
 Build-Depends: debhelper-compat (= 13), postgresql-server-dev-all (>= 141~)
 Rules-Requires-Root: no
 Homepage: https://powa.readthedocs.io/
