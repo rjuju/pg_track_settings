@@ -1,9 +1,10 @@
-pg-track-settings (2.1.1-3) UNRELEASED; urgency=medium
+pg-track-settings (2.1.1-3) unstable; urgency=medium
 
+  [ Debian Janitor ]
   * Remove constraints unnecessary since buster (oldstable):
     + Build-Depends: Drop versioned constraint on postgresql-server-dev-all.
 
- -- Debian Janitor <janitor@jelmer.uk>  Fri, 21 Oct 2022 12:59:11 -0000
+ -- Christoph Berg <myon@debian.org>  Wed, 02 Nov 2022 12:24:17 +0100
 
 pg-track-settings (2.1.1-2) unstable; urgency=medium
 
