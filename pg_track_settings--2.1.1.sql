@@ -239,7 +239,12 @@ $_$
 DECLARE
     _snap_ts timestamp with time zone;
 BEGIN
-    SELECT max(ts) INTO _snap_ts
+    -- If all pg_db_role_setting have been removed, we won't get a snapshot ts
+    -- but we may still have to record that some settings have been removed.
+    -- In that case simply use now(), as that extension doesn't guarantee the
+    -- timestamp to be more precise than the snapshot interval, and there's
+    -- isn't any better timestamp to use anyway.
+    SELECT coalesce(max(ts), now()) INTO _snap_ts
     FROM @extschema@.pg_track_settings_rds_src(_srvid);
 
     -- this function should have been called for previously saved data.  If

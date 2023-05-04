@@ -1,5 +1,27 @@
 SET search_path = '';
 SET timezone TO 'Europe/Paris';
+
+-- Remove any known per db setting set by pg_regress
+DO $$
+DECLARE
+    dbname text = current_database();
+    s text;
+BEGIN
+    FOREACH s IN ARRAY ARRAY['lc_messages', 'lc_monetary', 'lc_numeric', 'lc_time',
+               'bytea_output', 'timezone_abbreviations']
+    LOOP
+        EXECUTE format('ALTER DATABASE %I RESET %s', dbname, s);
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- There shouldn't be any db/role setting left.  It's unfortunately not
+-- guaranteed to be the case if the regression tests are run on a non-default
+-- cluster.
+SELECT d.datname, s.setconfig
+FROM pg_db_role_setting s
+JOIN pg_database d on s.setdatabase = d.oid;
+
 CREATE SCHEMA "PGTS";
 -- Extension should be installable in a custom schema
 CREATE EXTENSION pg_track_settings WITH SCHEMA "PGTS";
