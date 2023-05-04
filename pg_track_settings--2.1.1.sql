@@ -97,7 +97,8 @@ BEGIN
     ELSE
         RETURN QUERY SELECT s.ts,
             s.name, s.setting, s.current_setting
-        FROM @extschema@.pg_track_settings_settings_src_tmp s;
+        FROM @extschema@.pg_track_settings_settings_src_tmp s
+        WHERE srvid = _srvid;
     END IF;
 END;
 $PROC$ LANGUAGE plpgsql; /* end of pg_track_settings_settings_src */
@@ -121,7 +122,8 @@ BEGIN
     ELSE
         RETURN QUERY SELECT s.ts,
             s.name, s.setting, s.setdatabase, s.setrole
-        FROM @extschema@.pg_track_settings_rds_src_tmp s;
+        FROM @extschema@.pg_track_settings_rds_src_tmp s
+        WHERE srvid = _srvid;
     END IF;
 END;
 $PROC$ LANGUAGE plpgsql; /* end of pg_track_settings_rds_src */
@@ -139,7 +141,8 @@ BEGIN
     ELSE
         RETURN QUERY SELECT s.ts,
             s.postmaster_ts
-        FROM @extschema@.pg_track_settings_reboot_src_tmp s;
+        FROM @extschema@.pg_track_settings_reboot_src_tmp s
+        WHERE srvid = _srvid;
     END IF;
 END;
 $PROC$ LANGUAGE plpgsql; /* end of pg_track_settings_reboot_src */
@@ -160,7 +163,8 @@ BEGIN
     -- not, probably somethig went wrong, so discard those data
     IF (_srvid != 0) THEN
         DELETE FROM @extschema@.pg_track_settings_settings_src_tmp
-        WHERE ts != _snap_ts;
+        WHERE ts != _snap_ts
+        AND srvid = _srvid;
     END IF;
 
     -- Handle dropped GUC
@@ -242,7 +246,8 @@ BEGIN
     -- not, probably somethig went wrong, so discard those data
     IF (_srvid != 0) THEN
         DELETE FROM @extschema@.pg_track_settings_rds_src_tmp
-        WHERE ts != _snap_ts;
+        WHERE ts != _snap_ts
+        AND srvid = _srvid;
     END IF;
 
     -- Handle dropped db_role_setting

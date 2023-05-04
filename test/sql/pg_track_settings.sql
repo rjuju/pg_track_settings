@@ -83,21 +83,29 @@ SELECT COUNT(*) FROM "PGTS".pg_reboot;
 INSERT INTO "PGTS".pg_track_settings_settings_src_tmp
   (srvid, ts, name, setting, current_setting)
 VALUES
-(1, '2019-01-01 00:00:00 CET', 'work_mem', '0', '0MB');
+(1, '2019-01-01 00:00:00 CET', 'work_mem', '0', '1MB'),
+(2, '2019-01-02 00:00:00 CET', 'work_mem', '0', '2MB');
 -- fake rds settings
 INSERT INTO "PGTS".pg_track_settings_rds_src_tmp
   (srvid, ts, name, setting, setdatabase, setrole)
 VALUES
-(1, '2019-01-01 00:00:00 CET', 'work_mem', '0MB', 123, 0);
+(1, '2019-01-01 00:00:00 CET', 'work_mem', '1MB', 123, 0),
+(2, '2019-01-02 00:00:00 CET', 'work_mem', '2MB', 456, 0);
 -- fake reboot settings
 INSERT INTO "PGTS".pg_track_settings_reboot_src_tmp
   (srvid, ts, postmaster_ts)
 VALUES
-(1, '2019-01-01 00:01:00 CET', '2019-01-01 00:00:00 CET');
+(1, '2019-01-01 00:01:00 CET', '2019-01-01 00:00:00 CET'),
+(2, '2019-01-02 00:01:00 CET', '2019-01-02 00:00:00 CET');
 
 SELECT "PGTS".pg_track_settings_snapshot_settings(1);
 SELECT "PGTS".pg_track_settings_snapshot_rds(1);
 SELECT "PGTS".pg_track_settings_snapshot_reboot(1);
+
+-- snapshot of remote server 1 shouldn't impact data for server 2
+SELECT srvid, count(*) FROM "PGTS".pg_track_settings_settings_src_tmp GROUP BY srvid;
+SELECT srvid, count(*) FROM "PGTS".pg_track_settings_rds_src_tmp GROUP BY srvid;
+SELECT srvid, count(*) FROM "PGTS".pg_track_settings_reboot_src_tmp GROUP BY srvid;
 
 -- fake general settings
 INSERT INTO "PGTS".pg_track_settings_settings_src_tmp
@@ -151,15 +159,22 @@ FROM "PGTS".pg_track_db_role_settings_diff('2018-12-31 02:00:00 CET',
     '2019-01-02 03:00:00 CET', 1) s
 WHERE name = 'work_mem' ORDER BY 1, 2, 3;
 SELECT * FROM "PGTS".pg_track_reboot_log(1);
+
+-- snapshot the pending server 2
+SELECT "PGTS".pg_track_settings_snapshot_settings(2);
+SELECT "PGTS".pg_track_settings_snapshot_rds(2);
+SELECT "PGTS".pg_track_settings_snapshot_reboot(2);
+
 -- check that all data have been deleted after processing
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_settings_src_tmp;
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_rds_src_tmp;
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_reboot_src_tmp;
 -- test the reset
 SELECT * FROM "PGTS".pg_track_settings_reset(1);
-SELECT COUNT(*) FROM "PGTS".pg_track_settings_history;
+SELECT srvid, COUNT(*) FROM "PGTS".pg_track_settings_history GROUP BY srvid;
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_log('work_mem', 1);
 SELECT COUNT(*) FROM "PGTS".pg_track_settings_diff('-infinity', 'infinity', 1);
 SELECT COUNT(*) FROM "PGTS".pg_track_db_role_settings_log('work_mem', 1);
 SELECT COUNT(*) FROM "PGTS".pg_track_db_role_settings_diff('-infinity', 'infinity', 1);
-SELECT COUNT(*) FROM "PGTS".pg_reboot;
+SELECT srvid, COUNT(*) FROM "PGTS".pg_track_db_role_settings_history GROUP BY srvid;
+SELECT srvid, COUNT(*) FROM "PGTS".pg_reboot GROUP BY srvid;
