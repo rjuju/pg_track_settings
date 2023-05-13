@@ -1,5 +1,5 @@
 comment = 'Track settings changes'
-default_version = '2.1.1'
+default_version = '2.1.2'
 module_pathname = '$libdir/pg_track_settings'
 superuser = false
 relocatable = false

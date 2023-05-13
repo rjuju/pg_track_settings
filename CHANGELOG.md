@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2023-05-13 2.1.2:
+-----------------
+
+- Fix concurrent remote snapshot (Julien Rouhaud)
+- Fix role / db setting snapshot when all previous settings have been removed
+  (Julien Rouhaud, per report from github user sajiljosephs)
+
 2022-09-21 2.1.1:
 ------------------
 
