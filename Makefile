@@ -22,4 +22,4 @@ release-zip: all
 	rm ./${EXTENSION}-$(EXTVERSION)/.gitignore
 	sed -i -e "s/__VERSION__/$(EXTVERSION)/g"  ./${EXTENSION}-$(EXTVERSION)/META.json
 	zip -r ./${EXTENSION}-$(EXTVERSION).zip ./${EXTENSION}-$(EXTVERSION)/
-	rm ./${EXTENSION}-$(EXTVERSION) -rf
+	rm -rf ./${EXTENSION}-$(EXTVERSION)
