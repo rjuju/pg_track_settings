@@ -1,3 +1,11 @@
+pg-track-settings (2.1.2-2) unstable; urgency=medium
+
+  * Team upload.
+  * Upload for PostgreSQL 16.
+  * Use ${postgresql:Depends}.
+
+ -- Christoph Berg <myon@debian.org>  Sun, 17 Sep 2023 21:18:30 +0200
+
 pg-track-settings (2.1.2-1) unstable; urgency=medium
 
   * New upstream version.
