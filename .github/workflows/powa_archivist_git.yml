@@ -5,6 +5,7 @@ on:
     branches: [master]
 
 env:
+  TARGET_ORG: "powa-team"
   TARGET_REPO: "powa-podman"
   EVENT_TYPE: "powa-archivist-git"
 
@@ -16,7 +17,7 @@ jobs:
       - name: Trigger the powa-archivist-git repository dispatch
         run: |
           # Set variables
-          org="${{ github.repository_owner }}"
+          org="${{ env.TARGET_ORG }}"
           repo="${{ env.TARGET_REPO }}"
           event_type="${{ env.EVENT_TYPE }}"
 
