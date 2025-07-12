@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         # support 9.5 and later (9.4 doesn't have regrole)
-        pgversion:  [ 9.5, 9.6, 10, 11, 12, 13, 14, 15, 16 ]
+        pgversion:  [ 9.5, 9.6, 10, 11, 12, 13, 14, 15, 16, 17 ]
 
     env:
       PGVERSION: ${{ matrix.pgversion }}
