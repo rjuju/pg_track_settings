@@ -1,6 +1,15 @@
 Changelog
 =========
 
+2026-09-07 2.1.3:
+-----------------
+
+- Explicitly schema-qualify "timestamp with time zone" as pg_catalog.timestamptz
+  everywhere it's used, for consistency with the rest of the script (which
+  already schema-qualifies every other pg_catalog reference) and to avoid
+  ambiguity in SQL dialects/forks where the bare SQL-standard phrase can
+  resolve to a different type than what now() returns.
+
 2023-05-13 2.1.2:
 -----------------
 
