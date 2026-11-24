@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2026-11-23 2.2.0:
+-----------------
+
+- Track PostgreSQL server version changes over the lifetime of a cluster
+  directory.  Each version change (e.g. minor version upgrade) is recorded
+  with the postmaster start time at which the new version came into service.
+  Use pg_track_version_log() to display the version history (Ivan Kovmir)
+
 2023-05-13 2.1.2:
 -----------------
 
